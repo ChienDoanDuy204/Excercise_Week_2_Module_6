@@ -80,6 +80,8 @@ class BaseMLP(ABC):
             return float('nan')
         return Value[-1]
     def fit(self, X = None, y = None, X_val = None, y_val = None, dataset = None, val_dataset = None, lr = 0.01, n_epochs = 100, batch_size = 1, verbose = 0, validation_split = None, is_shuffle = True, optimizer = 'SGD', criterion = 'MSE', random_state = 14):
+        self.dataset = None
+        self.val_dataset = None
         
         # Kiểm tra chuẩn bị dataset train
         if X is not None and y is not None:
@@ -224,9 +226,9 @@ class BaseMLP(ABC):
                 num_batch_val = len(self.Val_Loader)
                 Loss_val_epoch = 0
                 Acc_val_epoch = 0
+                self.model.eval()
                 for X_val, y_val in self.Val_Loader:
                     X_val, y_val = X_val.to(self.device), y_val.to(self.device)
-                    self.model.eval()
                     with torch.no_grad():
                         logits_Val = self.model(X_val)
                         val_loss = self.compute_loss(logits_Val,y_val)
