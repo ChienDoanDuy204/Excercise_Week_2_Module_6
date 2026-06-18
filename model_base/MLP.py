@@ -171,7 +171,7 @@ class BaseMLP(ABC):
             self.Val_Loader = DataLoader(self.ValSet,batch_size=self.batch_size)
         else:
             self.TrainSet = self.dataset
-        self.Train_Loader = DataLoader(self.TrainSet,batch_size=self.batch_size, shuffle= self.is_shuffle, num_workers=2, pin_memory=True)
+        self.Train_Loader = DataLoader(self.TrainSet,batch_size=self.batch_size, shuffle= self.is_shuffle, num_workers = 2, pin_memory=True)
 
 
         # Kiêm tra val_dataset có tồn tại hay không
